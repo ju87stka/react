@@ -1,12 +1,15 @@
 import React from 'react';
 import classes from './Dialogs.module.css';
-import {NavLink} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {
-    addMessageActionCreator,
-    updateNewMessageTextActionCreator,
-} from "../../redux/dialog-reducer";
+
+import {Field, reduxForm} from "redux-form";
+import {Textarea} from "../Common/FormsControl/FormsControls";
+import {maxLengthCreator, required} from "../../utils/validators/validators";
+import AddMessageForm from "./AddMessageForm/AddMessageForm";
+
+
 
 const Dialogs = (props) => {
     let  state=props.dialogsPage
@@ -17,13 +20,17 @@ const Dialogs = (props) => {
     map((message) => <Message message={message.message}/>);
     let newMessageElement=React.createRef();
 
-    let addMessage=() =>{
-props.addMessage();
+
+
+    let addNewMessage=(values) =>{
+props.addMessage(values.newMessageBody)
     }
-    let onMessageChange=()=>{
-        let text = newMessageElement.current.value;
-props.updateNewMessageBody(text);
-    }
+
+
+
+
+    if(!props.isAuth) return  <Redirect to={"/login"}/>
+
 
     return (
 
@@ -36,22 +43,16 @@ props.updateNewMessageBody(text);
 
             <div className={classes.messages}>
                 {messagesElement}
-                <div>
-                    <textarea ref={newMessageElement}
-                              onChange={onMessageChange}
-                              value={props.dialogsPage.newMessageText}
-                    />
 
-                </div>
-                <div>
+                <AddMessageForm onSubmit={addNewMessage} />
 
-                    <button onClick={addMessage}>Add Message</button>
-                </div>
             </div>
         </div>
 
 
 
+
     );
 }
+
 export default Dialogs;
