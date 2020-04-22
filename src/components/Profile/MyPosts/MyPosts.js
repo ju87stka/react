@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component, PureComponent} from 'react';
 import  classes from './MyPosts.module.css';
 import Post from "./Post/Post";
 import Profile from "./../Profile";
@@ -8,40 +8,40 @@ import {maxLengthCreator, required} from "../../../utils/validators/validators";
 import {Textarea} from "../../Common/FormsControl/FormsControls";
 
 
+class MyPosts extends PureComponent {
 
 
-const MyPosts=(props)=> {
+    render() {
 
-    let  postsElements =props.posts.
-    map( (p)=>                <Post message={p.message} likesCount={p.likesCount}/>);
+        let postsElements = this.props.posts.map((p) => <Post message={p.message} likesCount={p.likesCount}/>);
 
-    let newPostElement=React.createRef();
+        let newPostElement = React.createRef();
 
-    let onAddPost=(values) => {
+        let onAddPost = (values) => {
 
-        props.addPost(values.newPostElement);
+            this.props.addPost(values.newPostElement);
 
-    }
-
+        }
 
 
+        return (
 
-                return (
-
-                <div className={classes.postsBlock}>
-                    <h3>My posts</h3>
-                    <AddPostReduxForm    onSubmit={onAddPost}/>
+            <div className={classes.postsBlock}>
+                <h3>My posts</h3>
+                <AddPostReduxForm onSubmit={onAddPost}/>
 
                 <div>New post</div>
-            <div className={classes.posts}>
-                {postsElements}
+                <div className={classes.posts}>
+                    {postsElements}
 
 
+                </div>
             </div>
-        </div>
 
-    );
+        );
+    }
 }
+
 let maxLenght10=maxLengthCreator(10)
 const AddPostForm=(props)=>{
     return(

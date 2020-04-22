@@ -1,6 +1,5 @@
 import {authAPI, usersAPI} from "../api/Api";
-import {toggleIsFollowing, unfollowSuccess} from "./users-reducer";
-
+import {stopSubmit} from "redux-form"
 const SET_USER_DATA = "SET_USER_DATA";
 
 
@@ -23,9 +22,9 @@ const aufReducer = (state = initialState, action) => {
 
 
             };
+            default:
 
 
-        default:
             return state;
     }
 
@@ -37,9 +36,9 @@ export const setAuthUserData = (userId,email,login,isAuth) => {
         payload:{userId,email,login,isAuth}
     }
 }
-export const getInfoAuf=()=>{
-    return (dispatch)=>{
-        authAPI.isAuthMe().then(response =>{
+export const getInfoAuf=()=>
+     (dispatch)=>{
+       return authAPI.isAuthMe().then(response =>{
 
             if(response.data.resultCode===0){
                 let {id, login, email}=response.data.data;
@@ -51,14 +50,21 @@ export const getInfoAuf=()=>{
 
 
 
-    }}
+    }
 
-export const login=(email,password,rememberMe)=>{
-    return (dispatch)=>{
+export const login=(email,password,rememberMe)=>(dispatch)=>{
+
+
+
+
         authAPI.login(email,password,rememberMe).then(response =>{
 
             if(response.data.resultCode===0){
                 dispatch(getInfoAuf())
+            }else{
+                let message=response.data.messages.length>0 ?response.data.messages[0]:"Some Error"
+                dispatch(stopSubmit("login", {_error:message}))
+
             }
 
         })
@@ -66,7 +72,7 @@ export const login=(email,password,rememberMe)=>{
 
 
 
-    }}
+    }
 export const logout=()=>{
     return (dispatch)=>{
         authAPI.logout().then(response =>{

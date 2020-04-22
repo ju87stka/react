@@ -4,10 +4,7 @@ import Header from "./Header";
 import {getInfoAuf, logout} from "../../redux/auf-reducer";
 import {connect} from "react-redux";
 class HeaderContainer extends React.Component {
-    componentDidMount() {
-        this.props.getInfoAuf()
 
-    }
 
     render() {
 
@@ -22,4 +19,4 @@ const mapStateToProps=(state)=>({
     login:state.auf.login
 
 })
-export default connect(mapStateToProps, {getInfoAuf, logout} )(HeaderContainer);
+export default connect(mapStateToProps, {logout} )(HeaderContainer);
