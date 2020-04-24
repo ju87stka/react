@@ -1,6 +1,6 @@
 import {authAPI, usersAPI} from "../api/Api";
 import {stopSubmit} from "redux-form"
-const SET_USER_DATA = "SET_USER_DATA";
+const SET_USER_DATA = "auf/SET_USER_DATA";
 
 
 
@@ -37,29 +37,25 @@ export const setAuthUserData = (userId,email,login,isAuth) => {
     }
 }
 export const getInfoAuf=()=>
-     (dispatch)=>{
-       return authAPI.isAuthMe().then(response =>{
+     async (dispatch)=>{
+         let response = await authAPI.isAuthMe()
 
             if(response.data.resultCode===0){
                 let {id, login, email}=response.data.data;
                 dispatch(setAuthUserData(id,email,login,true))
             }
 
-        })
+
 
 
 
 
     }
 
-export const login=(email,password,rememberMe)=>(dispatch)=>{
+export const login=(email,password,rememberMe)=> async (dispatch)=>{
 
-
-
-
-        authAPI.login(email,password,rememberMe).then(response =>{
-
-            if(response.data.resultCode===0){
+     let response= await  authAPI.login(email,password,rememberMe)
+    if(response.data.resultCode===0){
                 dispatch(getInfoAuf())
             }else{
                 let message=response.data.messages.length>0 ?response.data.messages[0]:"Some Error"
@@ -67,21 +63,20 @@ export const login=(email,password,rememberMe)=>(dispatch)=>{
 
             }
 
-        })
+
 
 
 
 
     }
 export const logout=()=>{
-    return (dispatch)=>{
-        authAPI.logout().then(response =>{
+    return async (dispatch)=>{
+       let response= await authAPI.logout()
 
             if(response.data.resultCode===0){
                 dispatch(setAuthUserData(null,null,null,false))
             }
 
-        })
 
 
 

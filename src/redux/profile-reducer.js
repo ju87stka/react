@@ -87,32 +87,33 @@ export const deletePost=(postId)=>   {
 
 
 export const getUserProfile=(userId)=>{
-    return (dispatch)=>{
-        usersAPI.getMyId(userId).then(response => {
+    return async (dispatch)=>{
+       let response=await usersAPI.getMyId(userId)
 
             dispatch(setUserProfile(response.data));
 
-        })
+
 
 
 
 
     }}
 export const getStatus=(userId)=>{
-    return (dispatch)=> {
-        profileAPI.getStatus(userId).then(response => {
+    return async (dispatch)=> {
+        let response=await profileAPI.getStatus(userId)
 
             dispatch(setStatus(response.data));
 
-        })
+
     }}
+
         export const updateStatus=(status)=>{
-            return (dispatch)=> {
-                profileAPI.updateStatus(status).then(response => {
+            return async (dispatch)=> {
+                let response=await   profileAPI.updateStatus(status)
 if(response.data.resultCode===0) {
     dispatch(setStatus(status));
 }
-                })
+
             }}
 
 
