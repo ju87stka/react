@@ -8,10 +8,8 @@ import {
     toggleIsFetching, toggleIsFollowing,
     unfollow
 } from "../../redux/users-reducer";
-import * as axios from "axios";
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
-import {usersAPI} from "../../api/Api";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../Hoc/withAuthRedirect";
 import {
@@ -29,7 +27,7 @@ class UsersAPIComponent extends React.Component {
 
     componentDidMount() {
 
-        this.props.requestUsers(this.currentPage, this.props.pageSize)
+        this.props.requestUsers(this.props.currentPage, this.props.pageSize)
 
 
     }
@@ -67,6 +65,7 @@ class UsersAPIComponent extends React.Component {
 
 
 let  mapStateToProps =(state)=>{
+
     return{
         users:getUsers(state),
         pageSize:getPageSize(state),

@@ -43,3 +43,4 @@ it("after deleting lengthof messages shouls decrise", ()=> {
     expect (newState.posts.length).toBe(1)
 
 })
+

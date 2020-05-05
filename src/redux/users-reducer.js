@@ -124,15 +124,15 @@ export const getUsersThunkCreator=(currentPage,pageSize)=>{
    dispatch( toggleIsFetching(true));
        dispatch( setCurrentPage(currentPage));
 
-       let data=await usersAPI.getUsers(currentPage,pageSize)
-        dispatch( toggleIsFetching(false));
+       let data= await usersAPI.getUsers(currentPage,pageSize)
 
         dispatch(setUsers(data.items));
         dispatch(setTotalUsersCount(data.totalCount));
+       dispatch( toggleIsFetching(false));
 
 
 
-    }}
+   }}
 
 
     const followUnfollowFlow= async (dispatch, userId, apiMethod,actionCreator)=>{

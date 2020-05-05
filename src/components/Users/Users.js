@@ -6,7 +6,7 @@ import User from "./User";
 let Users = (props) => {
 
     return <div>
-        <Paginators currentPage={props.currentPage} totalUsersCount={props.totalUsersCount} pageSize={props.pageSize}
+        <Paginators currentPage={props.currentPage} totalItemsCount={props.totalUsersCount} pageSize={props.pageSize}
                     onPageChanged={props.onPageChanged}/>
                     <div>
         {
