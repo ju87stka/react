@@ -1,4 +1,8 @@
 
+type  DialogType={
+    id:number
+    name:string
+}
 
 let initialState= [
 {id: 1, name: "Friend1"},
@@ -6,10 +10,9 @@ let initialState= [
 {id: 3, name: "Friend3"},
 
 
-];
+] as Array<DialogType>;
 
-
- const sidebarReducer=(state=initialState,action)=>{
+ const sidebarReducer=(state=initialState,action:any)=>{
 
 
 

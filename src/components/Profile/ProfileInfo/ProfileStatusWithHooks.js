@@ -26,8 +26,7 @@ let [editMode,setEditMode]=useState(false)
     setStatus(props.status)
 }, [props.status])
 
-    return (
-        <div>
+    return ( <div>
             {!editMode &&
             <div>
 
@@ -39,7 +38,7 @@ let [editMode,setEditMode]=useState(false)
         <input onChange={onStatusChange} autoFocus={true}  onBlur={deactivateEditMode} value={status}/>
     </div>
     }
-    < /div>
+    </div>
 
     )
 }

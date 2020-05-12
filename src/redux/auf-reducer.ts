@@ -6,19 +6,22 @@ const GET_CAPTCHA_URL_SUCCESS = "auf/GET_CAPTCHA_URL_SUCCESS";
 
 
 let initialState = {
-    userId:null,
-    email:null,
-    login:null,
-    isFetching: false,
-    isAuth:false,
-    captchaUrl:null
+    userId:null as number|null,
+    email:null as string|null,
+    login:null as string|null,
+    isFetching: false as boolean,
+    isAuth:false as boolean,
+    captchaUrl:null as string|null
 };
+export type InitialStateType=typeof initialState
 
-const aufReducer = (state = initialState, action) => {
+
+const aufReducer = (state:InitialStateType = initialState, action:any):InitialStateType => {
     switch (action.type) {
         case  SET_USER_DATA :
         case  GET_CAPTCHA_URL_SUCCESS :
             return {
+
               ...state,
                 ...action.payload
             };
@@ -32,13 +35,30 @@ const aufReducer = (state = initialState, action) => {
 
 
 }
-export const setAuthUserData = (userId,email,login,isAuth) => {
+type SetAuthUserDataActionPayloadType={
+    userId:number|null,
+    email:string|null,
+    login:string|null,
+    isAuth:boolean|null
+}
+type SetAuthUserDataActionType={
+    type:typeof SET_USER_DATA,
+    payload:SetAuthUserDataActionPayloadType
+}
+export const setAuthUserData = (userId:number|null ,email:string|null ,login:string|null ,isAuth:boolean|null ): SetAuthUserDataActionType=> {
     return {
         type: SET_USER_DATA,
         payload:{userId,email,login,isAuth}
     }
 }
-export const getCaptchaUrlSuccess = (captchaUrl) => {
+
+
+type GetCaptchaUrlSuccessActionType={
+    type: typeof GET_CAPTCHA_URL_SUCCESS,
+    payload:{captchaUrl:string}
+}
+
+export const getCaptchaUrlSuccess = (captchaUrl:string):GetCaptchaUrlSuccessActionType => {
     return {
         type: GET_CAPTCHA_URL_SUCCESS,
         payload:{captchaUrl}
@@ -48,7 +68,7 @@ export const getCaptchaUrlSuccess = (captchaUrl) => {
 
 
 export const getInfoAuf=()=>
-     async (dispatch)=>{
+     async (dispatch:any)=>{
          let response = await authAPI.isAuthMe()
 
             if(response.data.resultCode===0){
@@ -63,7 +83,7 @@ export const getInfoAuf=()=>
 
     }
 
-export const login=(email,password,rememberMe,captcha)=> async (dispatch)=>{
+export const login=(email:string,password:string,rememberMe:boolean,captcha:string)=> async (dispatch:any)=>{
 
     let response= await  authAPI.login(email,password,rememberMe,captcha)
     if(response.data.resultCode===0){
@@ -79,7 +99,7 @@ export const login=(email,password,rememberMe,captcha)=> async (dispatch)=>{
 
     }
 }
-export const getCaptchaUrl=()=> async (dispatch)=>{
+export const getCaptchaUrl=()=> async (dispatch:any)=>{
 
     let response= await  securityAPI.getCaptchaUrl()
 const captchaUrl=response.data.url
@@ -88,7 +108,7 @@ const captchaUrl=response.data.url
 
 }
 export const logout=()=>{
-    return async (dispatch)=>{
+    return async (dispatch:any)=>{
        let response= await authAPI.logout()
 
             if(response.data.resultCode===0){

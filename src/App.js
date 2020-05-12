@@ -35,7 +35,6 @@ return <Preloader/>
                 <div className={"app-wrapper-content"}>
                     <Route path="/dialogs" render={() => <DialogsContainer
 
-
                     />}/>
                     <Route path='/profile/:userId?' render={() => <ProfileContainer
 

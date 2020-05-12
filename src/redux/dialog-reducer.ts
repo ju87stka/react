@@ -1,6 +1,14 @@
 const UPDATE_NEW_MESSAGE_TEXT="UPDATE-NEW-MESSAGE-TEXT";
 const ADD_MESSAGE="ADD-MESSAGE";
 
+type  DialogType={
+    id:number
+    name:string
+}
+type  MessageType={
+    id:number
+    message:string
+}
 let initialState= {
      dialogs: [
         {id: 1, name: "Igor"},
@@ -9,7 +17,7 @@ let initialState= {
         {id: 4, name: "Sasha"},
         {id: 5, name: "Viktor"},
         {id: 6, name: "Valera"}
-    ],
+    ] as Array<DialogType>,
 
     messages: [
         {id: 1, message: "Hi1"},
@@ -18,10 +26,11 @@ let initialState= {
         {id: 4, message: "Hi4"},
         {id: 5, message: "Hi5"},
         {id: 6, message: "Hi6"}
-    ],
+    ] as Array<MessageType>,
  };
 
- const dialogsReducer=(state=initialState,action)=>{
+export  type InitialStateType=typeof initialState
+ const dialogsReducer=(state=initialState,action:any): InitialStateType=>{
 
      switch (action.type) {
 
@@ -49,7 +58,11 @@ return state;
 }
 }
 
-export  const addMessageActionCreator=(newMessageBody)=>   {
+type AddMessageActionCreatorType={
+    type: typeof ADD_MESSAGE,
+        newMessageText:string
+}
+export  const addMessageActionCreator=(newMessageBody:string): AddMessageActionCreatorType=>   {
     return{
         type: ADD_MESSAGE,
         newMessageText:newMessageBody
